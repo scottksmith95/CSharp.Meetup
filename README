@@ -1,0 +1,14 @@
+CSharp.Meetup is a C# .NET wrapper for the Meetup RESTful API.
+
+It contains the following
+
+  * OAuth connection support for Meetup
+  * API access via explicit Urls and response handling for Meetup
+  * ASP.NET MVC 3 example project
+  * Console application example project
+
+The following will be added
+
+  * API binding for Meetup
+
+API documentation can be found here: http://www.meetup.com/meetup_api/docs/
