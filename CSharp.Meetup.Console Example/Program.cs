@@ -47,7 +47,7 @@ namespace CSharp.Meetup.Console_Example
 				var meetup = meetupServiceProvider.GetApi(oauthAccessToken.Value, oauthAccessToken.Secret);
 
 				meetup.RestOperations.GetForObjectAsync<string>("https://api.meetup.com/2/members?member_id=" + MemberId)
-					.ContinueWith(task => Console.WriteLine("Result: " + task.Result)); ;
+					.ContinueWith(task => Console.WriteLine("Result: " + task.Result));
 			}
 			catch (AggregateException ae)
 			{
