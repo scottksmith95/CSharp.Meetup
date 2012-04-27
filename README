@@ -12,3 +12,4 @@ The following will be added
   * API binding for Meetup
 
 API documentation can be found here: http://www.meetup.com/meetup_api/docs/
+NuGet package can be found here: https://nuget.org/packages/CSharp.Meetup
