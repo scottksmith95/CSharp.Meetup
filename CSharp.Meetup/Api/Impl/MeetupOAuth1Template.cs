@@ -35,24 +35,24 @@ namespace CSharp.Meetup.Api.Impl
     /// <remarks>
     /// <para>
     /// All Meetup operations require OAuth authentication. 
-    /// To perform such operations, <see cref="MeetupTemplate"/> must be constructed 
+    /// To perform such operations, <see cref="MeetupOAuth1Template"/> must be constructed 
     /// with the minimal amount of information required to sign requests to Meetup's API 
     /// with an OAuth <code>Authorization</code> header.
     /// </para>
     /// </remarks>
     /// <author>Scott Smith</author>
-    public sealed class MeetupTemplate : AbstractOAuth1ApiBinding, IMeetup 
+    public sealed class MeetupOAuth1Template : AbstractOAuth1ApiBinding, IMeetup 
     {
-		private static readonly Uri ApiUriBase = new Uri("https://api.meetup.com/2/");
+		private static readonly Uri ApiUriBase = new Uri("https://api.meetup.com");
 
         /// <summary>
-        /// Create a new instance of <see cref="MeetupTemplate"/>.
+        /// Create a new instance of <see cref="MeetupOAuth1Template"/>.
         /// </summary>
         /// <param name="consumerKey">The application's API key.</param>
         /// <param name="consumerSecret">The application's API secret.</param>
         /// <param name="accessToken">An access token acquired through OAuth authentication with Meetup.</param>
         /// <param name="accessTokenSecret">An access token secret acquired through OAuth authentication with Meetup.</param>
-        public MeetupTemplate(string consumerKey, string consumerSecret, string accessToken, string accessTokenSecret) 
+        public MeetupOAuth1Template(string consumerKey, string consumerSecret, string accessToken, string accessTokenSecret) 
             : base(consumerKey, consumerSecret, accessToken, accessTokenSecret)
         {
             InitSubApis();

@@ -2,7 +2,7 @@
 using CSharp.Meetup.Api.Interfaces;
 using CSharp.Meetup.Connect;
 using Spring.Json;
-using Spring.Social.OAuth1;
+using Spring.Social.OAuth2;
 
 namespace CSharp.Meetup.MVC_3_Example.Controllers
 {
@@ -20,37 +20,30 @@ namespace CSharp.Meetup.MVC_3_Example.Controllers
 		// Set your member id for API call
 		private const string MemberId = "42116682";
 
-		readonly IOAuth1ServiceProvider<IMeetup> _meetupProvider = new MeetupServiceProvider(MeetupApiKey, MeetupApiSecret);
+        readonly IOAuth2ServiceProvider<IMeetup> _meetupProvider = new MeetupOAuth2ServiceProvider(MeetupApiKey, MeetupApiSecret);
 
 		public ActionResult Index()
 		{
-			var token = Session["AccessToken"] as OAuthToken;
+			var token = Session["AccessToken"] as AccessGrant;
 			if (token != null)
 			{
-				var meetupClient = _meetupProvider.GetApi(token.Value, token.Secret);
+				var meetupClient = _meetupProvider.GetApi(token.AccessToken);
 				var result = meetupClient.RestOperations.GetForObjectAsync<string>("https://api.meetup.com/2/members?member_id=" + MemberId).Result;
 
-				ViewBag.TokenValue = token.Value;
-				ViewBag.TokenSecret = token.Secret;
+				ViewBag.TokenValue = token.AccessToken;
 				ViewBag.ResultText = result;
 
 				return View();
 			}
 
-			var requestToken = _meetupProvider.OAuthOperations.FetchRequestTokenAsync(CallbackUrl, null).Result;
-
-			Session["RequestToken"] = requestToken;
-
-			return Redirect(_meetupProvider.OAuthOperations.BuildAuthenticateUrl(requestToken.Value, null));
+			return Redirect(_meetupProvider.OAuthOperations.BuildAuthorizeUrl(GrantType.AuthorizationCode, new OAuth2Parameters() { RedirectUrl = CallbackUrl }));
 		}
 
-		public ActionResult Callback(string oauth_verifier)
+		public ActionResult Callback(string code)
 		{
-			var requestToken = Session["RequestToken"] as OAuthToken;
-			var authorizedRequestToken = new AuthorizedRequestToken(requestToken, oauth_verifier);
-			var token = _meetupProvider.OAuthOperations.ExchangeForAccessTokenAsync(authorizedRequestToken, null).Result;
+			AccessGrant accessGrant = _meetupProvider.OAuthOperations.ExchangeForAccessAsync(authorizationCode: code, redirectUri: CallbackUrl, additionalParameters: null).Result;
 
-			Session["AccessToken"] = token;
+			Session["AccessToken"] = accessGrant;
 
 			return RedirectToAction("Index");
 		}

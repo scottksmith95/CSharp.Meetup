@@ -29,14 +29,14 @@ namespace CSharp.Meetup.Connect
 	/// Meetup <see cref="IServiceProvider"/> implementation.
     /// </summary>
     /// <author>Scott Smith</author>
-	public class MeetupServiceProvider : AbstractOAuth1ServiceProvider<IMeetup>
+	public class MeetupOAuth1ServiceProvider : AbstractOAuth1ServiceProvider<IMeetup>
     {
         /// <summary>
-		/// Creates a new instance of <see cref="MeetupServiceProvider"/>.
+		/// Creates a new instance of <see cref="MeetupOAuth1ServiceProvider"/>.
         /// </summary>
         /// <param name="consumerKey">The application's API key.</param>
         /// <param name="consumerSecret">The application's API secret.</param>
-		public MeetupServiceProvider(string consumerKey, string consumerSecret)
+		public MeetupOAuth1ServiceProvider(string consumerKey, string consumerSecret)
             : base(consumerKey, consumerSecret, new OAuth1Template(consumerKey, consumerSecret,
 				"https://api.meetup.com/oauth/request/",
 				"http://www.meetup.com/authorize/",
@@ -52,7 +52,7 @@ namespace CSharp.Meetup.Connect
         /// <returns>A binding to the service provider's API.</returns>
 		public override IMeetup GetApi(string accessToken, string secret)
         {
-			return new MeetupTemplate(ConsumerKey, ConsumerSecret, accessToken, secret);
+			return new MeetupOAuth1Template(ConsumerKey, ConsumerSecret, accessToken, secret);
         }
     }
 }

@@ -53,11 +53,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Impl\MeetupErrorHandler.cs" />
-    <Compile Include="Api\Impl\MeetupTemplate.cs" />
+    <Compile Include="Api\Impl\MeetupOAuth2Template.cs" />
+    <Compile Include="Api\Impl\MeetupOAuth1Template.cs" />
     <Compile Include="Api\Interfaces\IMeetup.cs" />
     <Compile Include="Api\MeetupApiError.cs" />
     <Compile Include="Api\MeetupApiException.cs" />
-    <Compile Include="Connect\MeetupServiceProvider.cs" />
+    <Compile Include="Connect\MeetupOAuth2ServiceProvider.cs" />
+    <Compile Include="Connect\MeetupOAuth1ServiceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

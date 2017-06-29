@@ -22,7 +22,7 @@ namespace CSharp.Meetup.Console_Example
 		{
 			try
 			{
-				var meetupServiceProvider = new MeetupServiceProvider(MeetupApiKey, MeetupApiSecret);
+				var meetupServiceProvider = new MeetupOAuth1ServiceProvider(MeetupApiKey, MeetupApiSecret);
 
 				/* OAuth 'dance' */
 
